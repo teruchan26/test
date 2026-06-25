@@ -1,28 +1,27 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // 1. まずローカルストレージから全データを読み込む
     const allHistory = JSON.parse(localStorage.getItem('match_history')) || [];
 
     if (allHistory.length === 0) {
         const deleteAllBtn = document.getElementById('btn-delete-all');
         if (deleteAllBtn) deleteAllBtn.style.display = 'none';
-        return;
+        return; 
     }
 
-    // 🌟【改善ポイント1】日時の形式（- や / や T）がバラバラでも、確実にタイムスタンプに変換して昇順ソート
+    // 日時の強制ソート
     allHistory.sort((a, b) => {
         const dateA = a.date ? new Date(a.date.replace(/\//g, '-')).getTime() : 0;
         const dateB = b.date ? new Date(b.date.replace(/\//g, '-')).getTime() : 0;
         return (isNaN(dateA) ? 0 : dateA) - (isNaN(dateB) ? 0 : dateB);
     });
 
-    // 2. ソート済みの綺麗なデータから「最新の100件」を抽出
     const recent100History = allHistory.slice(-100);
 
-    // 📊 勝率計算の関数には「直近100戦分」を渡す
     calculateSummary(recent100History);
     renderCharacterStats(recent100History);
+    
+    // 🌟【ここを追加！】直近100戦のBan率を計算して描画
+    renderBanStats(recent100History);
 
-    // 📜 スクロールして見たい対戦履歴テーブルには「ソート済みの全データ」を渡す
     renderHistoryTable(allHistory);
 });
 
@@ -188,4 +187,76 @@ function clearAllHistory() {
         localStorage.removeItem('match_history');
         location.reload();
     }
+}
+
+// 🚫 4. プール内キャラクター別Ban率を計算・描画する関数
+function renderBanStats(recentHistory) {
+    const container = document.getElementById('ban-stats-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const banStats = {};
+
+    recentHistory.forEach(match => {
+        // この試合で「自分がプールに編成していたキャラ」をリスト化 (空文字は除外)
+        const myPool = [match.myPool1, match.myPool2, match.myPool3, match.myPool4]
+            .map(c => c ? c.trim() : "")
+            .filter(Boolean);
+            
+        // この試合で「相手がBanしてきたキャラ」をリスト化
+        const enemyBans = [match.myBanned1, match.myBanned2]
+            .map(c => c ? c.trim() : "")
+            .filter(Boolean);
+
+        // プールにいたキャラごとに、編成回数とBanされた回数を集計
+        myPool.forEach(charName => {
+            if (!banStats[charName]) {
+                banStats[charName] = { banCount: 0, totalCount: 0 };
+            }
+            
+            banStats[charName].totalCount++; // 編成数を +1
+            
+            // もし相手のBanリストにそのキャラがいたら、Ban数を +1
+            if (enemyBans.includes(charName)) {
+                banStats[charName].banCount++;
+            }
+        });
+    });
+
+    // 配列に変換してBan率を計算し、高い順（降順）にソート
+    const sortedBanStats = Object.keys(banStats).map(charName => {
+        const stats = banStats[charName];
+        const rate = stats.totalCount > 0 ? Math.round((stats.banCount / stats.totalCount) * 100) : 0;
+        return { name: charName, ...stats, rate: rate };
+    }).sort((a, b) => b.rate - a.rate || b.totalCount - a.totalCount); // Ban率順（同じなら編成回数順）
+
+    if (sortedBanStats.length === 0) {
+        container.innerHTML = '<div class="no-data">直近100戦以内にプール情報（編成データ）がありません。</div>';
+        return;
+    }
+
+    // グラフの描画（既存の勝率グラフのCSSクラスを流用します）
+    sortedBanStats.forEach(stat => {
+        const row = document.createElement('div');
+        row.className = 'char-stats-row';
+        
+        // 警戒度高（Ban率50%以上）なら赤いバー、それ以外は少し落ち着いた赤系にする演出
+        const barColor = stat.rate >= 50 
+            ? 'linear-gradient(90deg, #ef4444, #f87171)' 
+            : 'linear-gradient(90deg, #b91c1c, #ef4444)';
+
+        row.innerHTML = `
+            <div class="char-stats-info">
+                <div class="char-stats-name">${stat.name}</div>
+            </div>
+            <div class="char-stats-bar-container">
+                <div class="char-stats-bar" style="width: ${stat.rate}%; background: ${barColor};"></div>
+            </div>
+            <div class="char-stats-nums">
+                <span>Ban: ${stat.banCount}回 / 編成: ${stat.totalCount}回</span>
+                <span class="char-stats-rate" style="color: #f87171; font-weight: bold;">${stat.rate}%</span>
+            </div>
+        `;
+        container.appendChild(row);
+    });
 }
