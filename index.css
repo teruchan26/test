@@ -1,0 +1,109 @@
+/* 全画面共通の基本設定 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121824;
+    color: #e2e8f0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #38bdf8;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #94a3b8;
+    letter-spacing: 2px;
+}
+
+.description-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px 0;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ボタンの共通デザイン */
+.btn {
+    display: block;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #38bdf8;
+    color: #0f172a;
+}
+
+.btn-primary:hover {
+    background-color: #7dd3fc;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #334155;
+    color: #ffffff;
+    border: 1px solid #475569;
+}
+
+.btn-secondary:hover {
+    background-color: #475569;
+    transform: translateY(-2px);
+}
+
+/* 🌟 削除ボタン関連のスタイル */
+.btn-danger {
+    background: #450a0a !important;
+    border: 1px solid #7f1d1d !important;
+    color: #f87171 !important;
+}
+.btn-danger:hover {
+    background: #7f1d1d !important;
+    color: #ffffff !important;
+}
+
+/* 行ごとの削除ボタン */
+.btn-delete-row {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    color: #a1a1aa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.15s;
+}
+.btn-delete-row:hover {
+    background: #7f1d1d;
+    border-color: #b91c1c;
+    color: #ffffff;
+}

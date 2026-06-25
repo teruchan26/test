@@ -1,0 +1,141 @@
+/* ==========================================================================
+   📱 history.css (スマートフォン最適化 完全版)
+   ========================================================================== */
+
+/* (前半の navbar, container, summary-grid などの基本スタイルはそのまま維持) */
+
+body {
+    margin: 0; padding: 0; background-color: #121824; color: #e2e8f0;
+    font-family: Arial, sans-serif; padding-top: 70px;
+}
+.navbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 50px;
+    background-color: #1e293b; display: flex; justify-content: space-around;
+    align-items: center; border-bottom: 1px solid #334155; z-index: 100;
+}
+.navbar a { flex: 1; text-align: center; line-height: 50px; color: #94a3b8; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+.navbar a.active { color: #38bdf8; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 12px 40px 12px; }
+
+h2 { color: #ffffff; border-left: 4px solid #38bdf8; padding-left: 10px; font-size: 1.5rem; margin-bottom: 25px; }
+h3 { margin-top: 0; color: #38bdf8; font-size: 1.1rem; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 15px; }
+.section-box { background: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #334155; }
+.no-data { text-align: center; color: #64748b; padding: 20px 0; font-size: 0.95rem; }
+
+/* 📊 総合サマリーカード */
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
+.summary-card { background: #1e293b; border: 1px solid #334155; padding: 12px; border-radius: 8px; text-align: center; }
+.summary-label { font-size: 0.75rem; color: #94a3b8; margin-bottom: 5px; }
+.summary-value { font-size: 1.6rem; font-weight: bold; color: #ffffff; }
+.text-win .summary-value { color: #4ade80; }
+.text-lose .summary-value { color: #f87171; }
+.text-rate .summary-value { color: #38bdf8; }
+
+@media (max-width: 600px) { 
+    .summary-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } 
+}
+
+/* 🏆 キャラクター別勝率 */
+.char-stats-row { display: flex; align-items: center; background: #0f172a; padding: 10px 15px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #334155; }
+.char-stats-info { display: flex; align-items: center; gap: 12px; width: 130px; flex-shrink: 0; }
+.char-mini-icon { width: 35px; height: 35px; position: relative; }
+.char-mini-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 1px solid #38bdf8; }
+.char-mini-placeholder { width: 100%; height: 100%; background: #334155; border-radius: 50%; display: none; justify-content: center; align-items: center; font-size: 0.9rem; color: #38bdf8; font-weight: bold; }
+.char-stats-name { font-weight: bold; font-size: 0.9rem; }
+.char-stats-bar-container { flex-grow: 1; margin: 0 15px; background: #1e293b; height: 12px; border-radius: 6px; overflow: hidden; position: relative; }
+.char-stats-bar { height: 100%; background: #38bdf8; border-radius: 6px; transition: width 0.3s; }
+.char-stats-bar.high-rate { background: #4ade80; }
+.char-stats-nums { width: 130px; text-align: right; font-size: 0.85rem; color: #94a3b8; flex-shrink: 0; }
+.char-stats-rate { font-size: 1rem; font-weight: bold; color: #ffffff; margin-left: 4px; }
+
+@media (max-width: 550px) {
+    .char-stats-row { flex-wrap: wrap; padding: 10px; }
+    .char-stats-bar-container { width: 100%; order: 3; margin: 10px 0 0 0; }
+    .char-stats-nums { flex-grow: 1; }
+}
+
+/* 📜 PC用：対戦履歴テーブルの基本スタイル */
+.table-responsive { overflow-x: auto; }
+.history-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+.history-table th { background: #0f172a; color: #94a3b8; padding: 12px; border-bottom: 2px solid #334155; }
+.history-table td { padding: 12px; border-bottom: 1px solid #334155; vertical-align: middle; }
+.history-table tr:hover { background: rgba(255,255,255,0.02); }
+.badge-win { color: #4ade80; font-weight: bold; background: rgba(74, 222, 128, 0.1); padding: 4px 8px; border-radius: 4px; }
+.badge-lose { color: #f87171; font-weight: bold; background: rgba(248, 113, 113, 0.1); padding: 4px 8px; border-radius: 4px; }
+.text-pool-muted { color: #64748b; font-size: 0.75rem; display: block; margin-top: 2px; }
+.text-ban-strikethrough { color: #94a3b8; text-decoration: line-through; opacity: 0.6; }
+
+/* 🌟🌟 魔法のレスポンシブ：タブレット・スマホ（幅768px以下）での挙動 🌟🌟 */
+@media (max-width: 768px) {
+    /* テーブルの「表」としての構造を破壊し、ブロック要素化する */
+    .history-table, 
+    .history-table thead, 
+    .history-table tbody, 
+    .history-table th, 
+    .history-table td, 
+    .history-table tr { 
+        display: block; 
+    }
+    
+    /* 見出し（ヘッダー行）はスマホでは邪魔なので非表示に */
+    .history-table thead { 
+        display: none; 
+    }
+    
+    /* 1ペアの試合（行）を1つの独立した「カード」に変身させる */
+    .history-table tr {
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 15px;
+        position: relative; /* WIN/LOSEや削除ボタンの配置用 */
+    }
+    
+    /* 各セル（項目）の調整。左側に擬似要素で「項目名」を固定表示する */
+    .history-table td {
+        border: none;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+        padding: 8px 5px 8px 110px; /* 左側に大きな余白を作って文字を載せる */
+        position: relative;
+        text-align: left;
+        min-height: 32px;
+    }
+    
+    /* 最後の項目（削除ボタン）のアンダーラインは不要 */
+    .history-table td:last-child {
+        border-bottom: none;
+    }
+    
+    /* CSSだけで左側にタイトル（見出し）を出現させる魔法 */
+    .history-table td::before {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        width: 90px;
+        color: #64748b;
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+    
+    /* 何番目のtd番目かによってタイトルを書き換える */
+    .history-table td:nth-child(1)::before { content: "📅 日時"; }
+    .history-table td:nth-child(2)::before { content: "👥 持ち込み"; }
+    .history-table td:nth-child(3)::before { content: "🔨 自チームBan"; }
+    .history-table td:nth-child(4)::before { content: "❌ 相手からのBan"; }
+    .history-table td:nth-child(5)::before { content: "⭐ ピック(自/味)"; }
+    .history-table td:nth-child(6)::before { content: "👹 相手のピック"; }
+    .history-table td:nth-child(7)::before { content: "🏆 試合結果"; }
+    .history-table td:nth-child(8)::before { content: "⚙️ 操作"; }
+
+    /* 試合結果（WIN/LOSE）を目立たせる微調整 */
+    .history-table td:nth-child(7) {
+        font-size: 1rem;
+    }
+}
+
+/* 🌟 削除ボタン関連のスタイル（前回同様） */
+.btn-danger { background: #450a0a !important; border: 1px solid #7f1d1d !important; color: #f87171 !important; }
+.btn-danger:hover { background: #7f1d1d !important; color: #ffffff !important; }
+.btn-delete-row { background: #27272a; border: 1px solid #3f3f46; color: #a1a1aa; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; width: 100%; text-align: center; box-sizing: border-box;}
+.btn-delete-row:hover { background: #7f1d1d; border-color: #b91c1c; color: #ffffff; }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>戦績確認 - 星の翼</title>
+    <link rel="stylesheet" href="history.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">トップ</a>
+        <a href="input.html">戦績入力</a>
+        <a href="history.html" class="active">戦績確認</a>
+    </nav>
+
+    <div class="container">
+        <h2>戦績の分析</h2>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-label">総試合数</div>
+                <div class="summary-value" id="total-matches">0</div>
+            </div>
+            <div class="summary-card text-win">
+                <div class="summary-label">WIN</div>
+                <div class="summary-value" id="total-wins">0</div>
+            </div>
+            <div class="summary-card text-lose">
+                <div class="summary-label">LOSE</div>
+                <div class="summary-value" id="total-loses">0</div>
+            </div>
+            <div class="summary-card text-rate">
+                <div class="summary-label">トータル勝率</div>
+                <div class="summary-value" id="total-win-rate">0%</div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>キャラクター別戦績（マイピック）</h3>
+            <div class="char-stats-list" id="char-stats-container">
+                <p class="no-data">データがありません。試合を記録してください。</p>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3>対戦履歴</h3>
+            <div class="table-responsive">
+                <div class="csv-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button type="button" class="btn-small btn-danger" id="btn-delete-all">全戦績をリセット</button>
+                    <div style="display: flex; gap: 10px;">
+                        </div>
+                </div>
+
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>日時</th>
+                            <th>自分プール</th>
+                            <th>自分Ban</th>
+                            <th>被Ban(自分)</th>
+                            <th>自Pick / 味Pick</th>
+                            <th>敵Pick 1 / 2</th>
+                            <th>結果</th>
+                            <th>操作</th> </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="history.js"></script>
+</body>
+</html>
