@@ -69,7 +69,7 @@ function calculateSummary(recentHistory) {
     if(document.getElementById('total-matches')) document.getElementById('total-matches').innerText = total;
     if(document.getElementById('total-wins')) document.getElementById('total-wins').innerText = win;
     if(document.getElementById('total-loses')) document.getElementById('total-loses').innerText = lose;
-    if(document.getElementById('total-win-rate')) document.getElementById('total-win-rate').innerText = winRate + '%';
+    if(document.getElementById('win-rate')) document.getElementById('win-rate').innerText = winRate + '%';
 }
 
 // 🏆 自分のキャラクター別勝率を計算・描画する関数
