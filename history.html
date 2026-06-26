@@ -42,11 +42,30 @@
             </div>
         </div>
 
-        <div class="stats-section" style="margin-top: 30px;">
-                <h2>直近100戦のキャラクター別Ban率（プール内）</h2>
+        <div class="stats-section" style="margin-top: 40px; background: #1e293b; padding: 25px; border-radius: 12px; border: 1px solid #334155;">
+
+            <div class="tab-navigation" style="display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid #334155; padding-bottom: 10px;">
+                <button type="button" class="tab-trigger active-tab" data-target="tab-ban" style="background: none; border: none; color: #38bdf8; font-size: 18px; font-weight: bold; cursor: pointer; padding: 8px 16px; border-bottom: 3px solid #38bdf8; margin-bottom: -13px; transition: all 0.2s;">
+                    🚫 自分のプール内Ban率
+                </button>
+                <button type="button" class="tab-trigger" data-target="tab-enemy" style="background: none; border: none; color: #94a3b8; font-size: 18px; font-weight: bold; cursor: pointer; padding: 8px 16px; border-bottom: 3px solid transparent; margin-bottom: -13px; transition: all 0.2s;">
+                    ⚔️ 相手のキャラ使用率
+                </button>
+            </div>
+
+            <div id="tab-ban" class="tab-pane">
+                <h3 style="font-size: 16px; color: #94a3b8; margin-bottom: 15px;">※直近100戦で自分が編成した回数に対し、相手にBanされた確率（高い順）</h3>
                 <div id="ban-stats-container">
                     </div>
             </div>
+
+            <div id="tab-enemy" class="tab-pane" style="display: none;">
+                <h3 style="font-size: 16px; color: #94a3b8; margin-bottom: 15px;">※直近100戦で相手がピックした全キャラの中での選出シェア（高い順）</h3>
+                <div id="enemy-stats-container">
+                    </div>
+            </div>
+
+        </div>
 
         <div class="section-box">
             <h3>対戦履歴</h3>
