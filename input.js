@@ -25,9 +25,9 @@ const CHARACTER_BY_COST = {
         { id: 'aliz', name: 'アリス'},
         { id: 'angelis', name: 'アンジェリス'},
         { id: 'baselard', name: 'バーゼラルド'},
-        { id: 'blackrockshooter', name: 'ブラック★ロックシューター'},
+        { id: 'blackrockshooter', name: 'B★RS'},
         { id: 'cygnus', name: 'シグナス'},
-        { id: 'dead-alive', name: 'デッド・アライヴ'},
+        { id: 'dead-alive', name: 'デッド・アライブ'},
         { id: 'deadmaster', name: 'デッドマスター'},
         { id: 'dragoner', name: 'ドラグナー'},
         { id: 'ffreedo', name: 'フリード'},
@@ -42,7 +42,7 @@ const CHARACTER_BY_COST = {
         { id: 'reki', name: 'レキ'},
         { id: 'sharp', name: 'シャープ'},
         { id: 'skysaber', name: 'スカイセーバー'},
-        { id: 'thunderbolt', name: 'サンダーボルト・OTOME'},
+        { id: 'thunderbolt', name: 'OTOME'},
         { id: 'valkia', name: 'ヴァルキア'},
         { id: 'xiaoling', name: 'シャオリン'},
         { id: 'xviii', name: '十八号'},
@@ -153,7 +153,7 @@ function generateModalCharacters(filterCost = 'ALL') {
             </div>
             <div class="char-name-label">${char.name}<span class="char-cost-label">${currentCost}</span></div>
         `;
-        
+
         item.addEventListener('click', () => selectCharacter(char.name, currentCost));
         grid.appendChild(item);
     });
